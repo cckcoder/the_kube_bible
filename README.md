@@ -9,7 +9,6 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 chmod +x minikube
 
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
 ```
 
 > Make sure minikube install complete with
@@ -59,3 +58,33 @@ mv ./kind /usr/local/bin/kind
 * A Pod should contain everything required to launch a microservice
 
 * A Pod should be stateless (When possible)
+
+### Create a Pod with imperative syntax
+> We need two parameters to create a Pod:
+  * The Pod's name
+  * The Docker image(s)
+
+> Example:
+`kubectl run nginx-pod --image nginx:latest`
+
+### Create a Pod with declarative syntax
+> Exmaple:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod # Pod's name
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx-latest
+```
+
+* `kubectl create -f nginx-pod.yaml`
+
+or
+
+* `kubectl apply -f nginx-pod.yaml`
+
+==Remember Pod's name is unique==
