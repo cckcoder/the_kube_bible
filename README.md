@@ -27,6 +27,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 ## Kind (Multiple node cluster)
 * [kind](https://kind.sigs.k8s.io/)
+
 ```bash
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
 
@@ -34,6 +35,13 @@ chmod +x ./kind
 
 mv ./kind /usr/local/bin/kind
 ```
+
+### Cli for kind
+* `kind create cluster --config ~/.kube/kind_cluster.yaml`
+
+* `kind stop`
+
+* `kind delete cluster`
 
 ## Essential kubectl
 * `kubectl config view`
@@ -44,3 +52,10 @@ mv ./kind /usr/local/bin/kind
 
 * `kubectl get cs`
   * `kubectl get componentstatuses`
+
+## How should design Pods
+> Respect two simple design rules when building Pods
+
+* A Pod should contain everything required to launch a microservice
+
+* A Pod should be stateless (When possible)
