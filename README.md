@@ -145,3 +145,44 @@ run the follow command to delete Pod
 
 `kubectl delete -f nginx-pod.yaml`
 
+## Labels
+
+> Create labels (imperative)
+
+* `kubectl run nginx-pod1 --image nginx:latest --labels='environment=prod' --labels='tier=frontend'`
+
+> Create labels (declarative)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-1 # Pod's name
+  labels: # Create labels
+    tier: frontend
+    environment: prod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:stable-alpine
+```
+
+> Listing labels attached to a Pod
+
+* `kubectl get pods --show-labels`
+
+* `k get po --show-labels`
+
+> Get Pod with labels
+
+* `kubectl get pods -l "tier=frontend"`
+
+* `kubectl get pods --show-labels -o wide`
+
+* `kubectl get pods nginx-pod --show-labels -o wide`
+
+> Adding or updating a label to/of a running Pod
+
+`kubectl label pods <POD_NAME> <LABEL_NAME>`
+
+`kubectl label pods nginx-pod stack=blue`
