@@ -147,6 +147,8 @@ run the follow command to delete Pod
 
 ## Labels
 
+### Create labels
+
 > Create labels (imperative)
 
 * `kubectl run nginx-pod1 --image nginx:latest --labels='environment=prod' --labels='tier=frontend'`
@@ -181,8 +183,24 @@ spec:
 
 * `kubectl get pods nginx-pod --show-labels -o wide`
 
+### Add, Update and Delete labels
+
 > Adding or updating a label to/of a running Pod
 
 `kubectl label pods <POD_NAME> <LABEL_NAME>`
 
 `kubectl label pods nginx-pod stack=blue`
+
+> update existing label
+
+`kubectl label pods nginx-pod stack=green --overwrite `
+
+⚠️ IMPORTANT NOTE
+
+> it's better to add labels when a Pod is created and keep your Kube configuration immutable
+
+> Deleting label
+
+`kubectl label pods nginx-pod stack-`
+
+we use (-) symbol after label key
