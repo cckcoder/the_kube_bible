@@ -3,8 +3,8 @@ kind: Job
 metadata:
   name: hello-world-job
 spec:
+  backoffLimit: 3
   template:
-    backoffLimit: 3
     metadata:
       name: hello-world-job
     spec:
