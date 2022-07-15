@@ -257,3 +257,34 @@ spec:
           command: ["/bin/sh", "-c"]
           args: ["echo 'Hello World'; sleep 3"]
 ```
+
+> Delete the jobs automatically
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-world-job
+spec:
+  ttlSecondsAfterFinished: 30
+  template:
+    metadata:
+      name: hello-world-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: hello-world-container
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args: ["echo 'Hello World'; sleep 3"]
+```
+
+> Delete the jobs manually
+
+* `kubectl delete jobs <JOB_NAME>`
+  * `kubectl delete jobs hello-world-job`
+
+if you want to delete the jobs but not the Pods it created
+
+* `kubectl delete jobs <JOB_NAME> --cascade=false`
+  * `kubectl delete jobs hello-world-job --cascade=false`
