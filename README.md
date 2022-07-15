@@ -234,3 +234,26 @@ The restartPolicy parameter can take two options:
 
 it will update your `kubectl` output when something new arrives,
 such as the creation of the new Pods being managed by your Kube
+
+### Terminating a job after a specific amount of time
+> You can do that using the `activeDeadlineSeconds`
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-world-job
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 60
+  template:
+    metadata:
+      name: hello-world-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: hello-world-container
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args: ["echo 'Hello World'; sleep 3"]
+```

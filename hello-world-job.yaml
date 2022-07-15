@@ -3,7 +3,8 @@ kind: Job
 metadata:
   name: hello-world-job
 spec:
-  parallelism: 5
+  backoffLimit: 3
+  activeDeadlineSeconds: 10
   template:
     metadata:
       name: hello-world-job
