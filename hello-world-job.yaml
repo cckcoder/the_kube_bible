@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: hello-world-job
 spec:
-  completions: 10
+  parallelism: 5
   template:
     metadata:
       name: hello-world-job
