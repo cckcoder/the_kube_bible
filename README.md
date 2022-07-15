@@ -204,3 +204,25 @@ spec:
 `kubectl label pods nginx-pod stack-`
 
 we use (-) symbol after label key
+
+## What are jobs?
+
+> A job is another kind of resource that's exposed by the Kube API
+in the end job will create one or multiple Pods to execute a command defined by you.
+
+* Exmaples of typical use case
+  * Taking a backup of a database
+  * Sending an email
+  * Consuming some messages in a queue
+
+These are task you do not want run forever.
+
+The restartPolicy parameter can take two options:
+* Never
+* OnFailure
+
+### How to make sure job work well?
+
+> we can read its log!
+
+`kubectl logs <POD_NAME>`
