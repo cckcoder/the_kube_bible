@@ -4,6 +4,7 @@ metadata:
   name: hello-world-job
 spec:
   template:
+    backoffLimit: 3
     metadata:
       name: hello-world-job
     spec:
