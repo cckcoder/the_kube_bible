@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: hello-world-job
 spec:
-  backoffLimit: 3
+  completions: 10
   template:
     metadata:
       name: hello-world-job
@@ -13,4 +13,4 @@ spec:
         - name: hello-world-container
           image: busybox
           command: ["/bin/sh", "-c"]
-          args: ["echo 'Hello World'"]
+          args: ["echo 'Hello World'; sleep 3"]

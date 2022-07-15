@@ -209,6 +209,7 @@ we use (-) symbol after label key
 
 > A job is another kind of resource that's exposed by the Kube API
 in the end job will create one or multiple Pods to execute a command defined by you.
+Pods to be terminated once they have completed their task. This is where the Jobs resource will help you
 
 * Exmaples of typical use case
   * Taking a backup of a database
@@ -226,3 +227,10 @@ The restartPolicy parameter can take two options:
 > we can read its log!
 
 `kubectl logs <POD_NAME>`
+
+> Use watch
+
+`kubectl get pods -w`
+
+it will update your `kubectl` output when something new arrives,
+such as the creation of the new Pods being managed by your Kube
