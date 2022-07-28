@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-world-cronjob
+spec:
+  schedule: "30 9 * * *"
+  concurrencyPolicy: Allow
+  #suspend: false
+  successfulJobsHistoryLimit: 1
+  #failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: hello-world-job
+        spec:
+          containers:
+          - name: hello-world-container
+            image: busybox
+            command: ["/bin/sh", "-c"]
+            args: ["date; echo 'Hello world from kube cluster'"]
+          restartPolicy: OnFailure
