@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-custom-cmd-args
+spec:
+  initContainers:
+  - name: my-init-ctr
+    image: busybox:latest
+    command: ["echo", "'hello initContainers'"]
+  containers:
+    - name: nginx-ctr
+      image: nginx:latest
+    - name: busybox-ctr
+      image: busybox:latest
+      command: ["sleep"]
+      args: ["5m"]
+

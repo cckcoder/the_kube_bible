@@ -10,3 +10,12 @@
 
 > Access into container name
 `kubectl exec -it multi-container-pod -c nginx-ctr -- /bin/sh`
+
+## initContainers
+
+can offload some configuration to them by keeping your main containers images
+in general, `initContainers` used to pull application code from Git repo
+
+## Access the logs
+`kubectl logs <POD_NAME>` >> this cause for only one container in Pod
+`kubectl logs <POD_NAME> -c <CONTAINER_NAME>`
