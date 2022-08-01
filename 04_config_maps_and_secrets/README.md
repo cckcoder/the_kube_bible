@@ -46,6 +46,19 @@ you should see "COLOR=blue"
 > This demo show how to inject all env variable into container
 [nginx-with-all-configmap](./nginx-pod-with-all-configmap.yaml)
 
+### Mounting a ConfigMap as a volume mount
+> Demo
+[nginx-with-volume](./nginx-pod-with-config-volumn.yaml)
 
+`kubectl exec nginx-pod-with-configmap-volume -- ls /etc/conf`
+
+### Delete a ConfigMap
+* `kubectl delete cm <CONFIGMAP_NAME>`
+  * `kubectl delete cm my-configmap`
+
+### Updating a ConfigMap
+
+> There's no real way to update a ConfigMap once it's been created.
+To update a ConfigMap, you'll have to delete it
 
 

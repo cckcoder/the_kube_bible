@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-with-configmap-volume
+spec:
+  volumes:
+    - name: configuration-volume
+      configMap:
+        name: eight-configmap
+  containers:
+    - name: nginx-ctr-configmap
+      image: nginx:latest
+      volumeMounts:
+        - name: configuration-volume
+          mountPath: /etc/conf
+
