@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: two-ctr-with-empty-dir
+spec:
+  containers:
+    - name: nginx-ctr
+      image: nginx:latest
+      volumeMounts:
+      - mountPath: /var/i-am-empty-dir-vol
+        name: empty-dir-vol
+    - name: fapi-ctr
+      image: cckcoder/fastapi:latest
+      command: ["/bin/sh", "-c"]
+      args: ["sleep 5m"]
+      volumeMounts:
+      - mountPath: /var/i-am-empty-dir-vol
+        name: empty-dir-vol
+  volumes:
+  - name: empty-dir-vol
+    emptyDir: {}
