@@ -62,3 +62,43 @@ you should see "COLOR=blue"
 To update a ConfigMap, you'll have to delete it
 
 
+## Secret
+
+### Creating Secret imperatively
+
+`--from-literal`
+
+* `kubectl create secret <SECRET_NAME> --from-literal=<KEY>=<VALUE>`
+  * `kubectl create secret generic my-first-secret --from-literal='db_pass=my-db-password'`
+
+
+### Creating Secret declaratively
+
+> When create a Secret from a YAML manifest file, you will have to handle encode your string.
+
+Example:
+
+`echo 'my-db-password' | base64` output will be: `bXktZGItcGFzc3dvcmQK`
+
+declarative example: [my-secret](./secrets/secret-from-file.yaml)
+
+let's create the secret `kubectl create -f secret-from-file.yaml`
+
+> Create secret with file
+`kubectl create secret generic <SECRET_NAME> --from-file=<FILE_NAME>`
+
+#### Reading a Secret
+`kubectl describe secret <SECRET_NAME>`
+
+### Consuming a Secret as a volume mount
+> You can only do with declaratively
+
+* [Demo1](./nginx-pod-with-config-volumn.yaml)
+
+### Deleting Secret
+`kubectl delete secret <SECRET_NAME>`
+`kubectl delete secret mysql-pass`
+
+### Update Secret
+
+> To update a secret, you will need to delte it and then recreate it with new values.
