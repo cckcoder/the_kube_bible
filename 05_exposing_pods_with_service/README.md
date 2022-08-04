@@ -101,3 +101,93 @@ Let's demo on it.
 > For convenience and to reduce complexity, the NodePort service port and target port
 are often defined to the same value.
 
+#### Describe NodePort service
+> It's very easy just `kubectl describe svc <NODEPORT_NAME>`
+
+#### Delet NodePort
+> You should careful when deleting service: it won't delete the Pods behind it.
+
+`kubectl delete svc <NODEPORT_NAME>`
+
+> Don't create NodePort for testing, and don't try to use `kubectl port-forward` for production!
+
+### The ClusterIP Service
+
+ClusterIP service are mean to expose Pods to other Pods inside the Kube cluster
+this service grants a static IP within the cluster!, keep in mind the ClusterIP are not
+accesible from outside.
+
+#### Creating ClusterIP services using the imperative way
+
+`kubectl run nginx-clusterip --image nginx --expose --port 80`
+
+then `kubectl describe svc nginx-clusterip` the output is:
+
+![clusterip describe](../img/clusterip-describe.png)
+
+we can check which pod link to tis cluster by
+
+`kubectl get po --show-labels`
+
+and look at `LABELS` match with `Selector`
+
+Let's use `dnsutils` container to do something.
+
+`kubectl exec -it dnsutils -- curl nginx-clusterip.default.svc.cluster.local`
+
+#### Creating ClusterIP services using the declarative way
+
+[demo clusterip](./clusterip-svc.yaml)
+
+#### Deleting ClusterIP services
+
+`kubectl delete svc <SERVICE_NAME>`
+
+### The LoadBalancer service
+
+> It's relies on the cloud platform where the Kube cluster is provisioned
+
+Indeed, Services obey a simple rule:
+  they serve traffic to every Pod that matches their label selector.
+
+### Implementing ReadinessProbe
+
+`ReadinessProbe` can be of three different types, as outlined here:
+* Command: it's should be complete with exit code 0
+* HTTP: it's should complete with a response code >= 200 and < 400, which indicates the Pod is ready.
+* TCP: 
+
+[demo readiness](./nginx-pod-with-readiness.yaml)
+
+### LivenessProbe
+
+> If you already used some cloud providers before, you might already have heard about something called health checks. So, in other words `LivenessProbe` is basically a health check.
+
+imagine a situation where you have a service forwarding traffic to three Pods
+and one of them is broken
+
+![Pod broken](../img/pod-broken.png)
+
+Services cannot detect that on their own, and they will just continue to serve traffic to the three Pods, include a broken one.
+
+you want to avoid such situation, and to do the, you need a way to detect situation where Pods are broken.
+
+`LivenessProbe` is the solution to this problem
+
+> LivenessProbe cannot repair a Pod, it can only detect that a Pod is not healthy and command its termination.
+
+[demo liveness-probe](./nginx-pod-with-liveness.yaml)
+
+an HTTP health check to success, it must answer an HTTP >= 200 and < 400.
+404 being out of range, the answer Pod won't be healthy
+
+Also use a command to check if a Pod is healthy or not
+
+[demo liveness-probe-cmd](./nginx-pod-with-liveness-command.yaml)
+
+can use TCP as well
+
+[demo liveness-probe-tcp](./nginx-pod-with-liveness-tcp.yaml)
+
+Having TCP as a liveness probe is nice especially if you want to keep track of an application that is base on HTTP 
+
