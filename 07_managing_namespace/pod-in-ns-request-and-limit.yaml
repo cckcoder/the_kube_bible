@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-request-and-limit
+  namespace: custom-ns
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      resource:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1Gi"
+          cpu: "500m"
