@@ -28,3 +28,24 @@ or
 > Pod cannot mount a PersistentVolume directly
 
 PersistentVolume objects is that they are not namespace resources, but PersistentVolumeClaims objects are.
+
+### PVC status
+* Available: object is created and ready to be use
+* Bound: object current mounted to one or several Pods.
+* Terminating: to be destroyed and wiped out
+
+## Dynamic Storage
+
+### Introducing StorageClasses
+> Listing StorageClasses
+`kubectl get storageclass`
+
+or
+
+`kubectl get sc`
+
+### Lab1
+
+* creating namespace `kubectl create ns dynamic-storage`
+* create PVC object [demo](./pvc-dynamic.yaml)
+
