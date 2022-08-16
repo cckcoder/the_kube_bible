@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+    matchExpressions:
+      - key: env
+        operator: In
+        values:
+          - test
+          - dev
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: test
+    spec:
+      containers:
+        - image: nginx
+          name: nginx-ctr
+          ports:
+            - containerPort: 80
