@@ -75,3 +75,19 @@ create deployment with imperative
 
   `kubectl delete deploy <DEPLOYMENT_NAME> --cascade=orphan`
 
+## Deployment object manage revisions and version rollout
+
+> kube support two strategies out of the box
+
+* RollingUpdate: default strategy
+* Recreate: terminate and delete any existing ReplicaSet and replace it with a new one. **Should not use this strategy in production**
+
+> Check rollout status
+
+`kubectl rollout status deployment <DEPLOYMENT_NAME>`
+
+roll back in imperative way:
+
+`kubectl set image deployment <DEPLOYMENT_NAME> <CONTAINER_NAME>=<CONTAINER_IMAGE>`
+
+`kubectl set image deployment nginx-deployment-demo nginx=nginx:1.18`
