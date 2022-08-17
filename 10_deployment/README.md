@@ -62,3 +62,16 @@ configuration **selector** match deployment selector
 create deployment with imperative
 
 `kubectl expose deployment --type=LoadBalancer <SVC_NAME>`
+
+## Deleting a Deployment object
+
+> you can do two things:
+
+* Delete the Deployment object, along with Pods that it owns.
+
+  `kubectl delete deploy <DEPLOYMENT_NAME>`
+
+* Delete the Deployment object and leave the other Pods unaffected.
+
+  `kubectl delete deploy <DEPLOYMENT_NAME> --cascade=orphan`
+
