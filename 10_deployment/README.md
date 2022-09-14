@@ -91,3 +91,46 @@ roll back in imperative way:
 `kubectl set image deployment <DEPLOYMENT_NAME> <CONTAINER_NAME>=<CONTAINER_IMAGE>`
 
 `kubectl set image deployment nginx-deployment-demo nginx=nginx:1.18`
+
+### Roll out
+
+Let's try
+
+* First, let's imperativly roll out another version of our Deployment
+
+  `kubectl set image deployment nginx-deployment-demo nginx=nginx:1.19`
+
+* Using `kubectl rollout status`, wait for end of the deployment:
+
+  `kubectl rollout status deployment nginx-deployment-demo`
+
+* check version of application `kubectl describe deploy`
+
+* Use the following `kubectl rollout history` to see all the revision are available
+
+  `kubectl rollout history deploy <DEPLOYMENT_NAME>`
+
+* Follow the command to revision
+
+  `kubectl rollout history deploy <DEPLOYMENT_NAME> --revision=2`
+
+* Now let's perform a rollback to this revision
+
+  `kubectl rollout undo deploy <DEPLOYMENT_NAME> rolled back`
+
+  or 
+
+  `kubectl rollout undo deploy <DEPLOYMENT_NAME> --to-revision=2`
+
+## Best practices
+
+* Use declarative object management for Deployments
+
+  > To delete objects, it is still better to use **imperative command**
+  > it is more predictable and less prone to errors
+
+* Do not use the **Recreate Strategy** for production workloads
+
+  > This will mean downtime for your end users.
+  > Because existing Pods old revision of the Deployment will be terminated
+  > and replaced with the new Pods.
